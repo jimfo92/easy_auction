@@ -1,0 +1,98 @@
+{% extends "auctions/layout.html" %}
+{% load static %}
+
+{% block body %} 
+
+  {% if wrong_bid %}
+    <div class="alert alert-secondary" role="alert">
+      The bid is lower than current. Try again
+    </div>
+  {% endif %} 
+
+  <!-- Page Content -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3">
+        <h3>Auction: {{item.auction.name}}</h3>
+        <div class="list-group">
+          {% if is_watchlist != None %}
+            <a href="{% url 'delete_watchlist' item.auction.id %}" class="list-group-item active">Remove From Watchlist</a>
+          {% else %}
+            <a href="{% url 'add_watchlist' item.auction.id %}" class="list-group-item active">Add To Watchlist</a>
+          {% endif %}
+          
+          {% if user_created_auction %}
+            <a href="{% url 'delete_auction' item.auction.id %}" class="list-group-item">Delete Auction</a>
+          {% endif %}
+        </div>
+      </div>
+      <!-- /.col-lg-3 -->
+
+      <div class="col-lg-9">
+
+        <div class="card mt-4">
+          <img class="card-img-top img-fluid" src="{{item.auction.image_url}}" alt="">
+          <div class="card-body">
+            <h3 class="card-title">{{item.auction.name}}</h3>
+            <h4>Starting bid: ${{item.starting_bid}}</h4>
+            {% if item.last_bid == 0 %}
+              <h4>There is no bid yet</h4>
+            {% else %}
+              <h4>Current bid: ${{item.last_bid}}</h4>
+            {% endif %}
+            <p class="card-text">{{item.auction.description}}</p>
+           
+            <form action="{% url 'make_bid' item.auction.id%}" method="POST" style="margin-top: 0.5em;">
+              {% csrf_token %}
+              {{form}}
+              <input type="submit">
+            </form>
+          </div>
+        </div>
+        <!-- /.card -->
+
+        <div class="card card-outline-secondary my-4">
+          <div class="card-header">
+            Product Reviews
+          </div>
+          <div class="card-body">
+            {% for commet in commets %}
+              <p>{{commet.commet}}</p>
+              <small class="text-muted">Posted by {{commet.user}}</small>
+              <hr>
+            {% endfor %}
+            <form action="{% url 'add_commet' item.auction.id %}" method="POST">
+              {% csrf_token %}
+              <div class="input-group input-group-lg">
+                  <span class="input-group-text" id="inputGroup-sizing-lg">Write Something</span>
+                  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" name="commet">
+                  <input type="submit">
+              </div>
+            </form>
+          </div>
+        </div>
+        <!-- /.card -->
+
+      </div>
+      <!-- /.col-lg-9 -->
+
+    </div>
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer 
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>
+    </div>
+  -->
+    <!-- /.container
+  </footer>
+-->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+{% endblock %}

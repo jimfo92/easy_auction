@@ -1,0 +1,48 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    {% if category %}
+        <h2>{{category}}</h2>
+    {% endif %}
+    {% if watchlist %}
+        <h2>Watchlist</h2>
+    {% endif %}
+    {% if active %}
+        <h2>Active Listings</h2>
+    {% endif %}
+
+    {% for auction_item in inactive_auctions %}
+        <div style="display: flex; align-items: center; align-content: center; justify-content: center;">
+            <div class="card" style="width: 38rem; margin: 1rem;">
+                <img class="card-img-top" src="{{auction_item.auction.image_url}}" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">{{auction_item.auction.name}}</h5>
+                    <h5>CLOSED</h5>
+                    {% if auction_item.user_who_made_last_successful_bid == user %}
+                        <p class="card-text">Congratulations you won the auction</p>
+                    {% else %}
+                        <p class="card-text">{{auction_item.user_who_made_last_successful_bid}} won the auction</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+    {% for auction_item in auctions %}
+        <div style="display: flex; align-items: center; align-content: center; justify-content: center;">
+            <div class="card" style="width: 38rem; margin: 1rem;">
+                <img class="card-img-top" src="{{auction_item.auction.image_url}}" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">{{auction_item.auction.name}}</h5>
+                    <p class="card-text">{{auction_item.auction.description}}</p>
+                    {% if auction_item.last_bid == 0 %}
+                        <p class="card-text">Current bid: There is no bid yet</p>
+                    {% else %}
+                        <p class="card-text">Current bid: {{auction_item.last_bid}}</p>
+                    {% endif %}
+                    <a href="{% url 'auction_details' auction_item.auction.id %}" class="btn btn-primary">Details!</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}   
+{% endblock %}
