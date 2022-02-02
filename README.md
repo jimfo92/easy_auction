@@ -11,5 +11,4 @@ eBay-like e-commerce auction site that will allow users to post auction listings
   - Categories: Users should be able to visit a page that displays a list of all listing categories. Clicking on the name of any category should take the user to a page that displays all of the active listings in that category.
   
 ## To run the application
-  - Install ***Django Environ*** for Django enviroment variables with ***pip3 install django-environ***
   - ***python3 manage.py runserver*** to run the app
