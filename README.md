@@ -1,5 +1,4 @@
 # ebay_clone
-
 eBay-like e-commerce auction site that will allow users to post auction listings, place bids on listings, comment on those listings, and add listings to a “watchlist.”
 
 ## Features
@@ -10,5 +9,10 @@ eBay-like e-commerce auction site that will allow users to post auction listings
   - Watchlist: Users who are signed in should be able to visit a Watchlist page, which should display all of the listings that a user has added to their watchlist.
   - Categories: Users should be able to visit a page that displays a list of all listing categories. Clicking on the name of any category should take the user to a page that displays all of the active listings in that category.
   
-## To run the application
-  - ***python3 manage.py runserver*** to run the app
+## Install
+  ```
+  python manage.py makemigrations
+  python manage.py migrate
+  
+  python manage.py runserver
+  ```
