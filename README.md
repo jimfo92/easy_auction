@@ -10,7 +10,7 @@ eBay-like e-commerce auction site that will allow users to post auction listings
   - Categories: Users should be able to visit a page that displays a list of all listing categories. Clicking on the name of any category should take the user to a page that displays all of the active listings in that category.
   
 ## Install
-In your terminal, cd into the project directory.
+In your terminal, `cd` into the project directory.
   ```
   python manage.py makemigrations
   python manage.py migrate
